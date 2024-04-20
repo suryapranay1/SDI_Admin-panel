@@ -1,0 +1,36 @@
+import * as React from 'react';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import AccordionExpandDefault from './accordon';
+import { createTheme,ThemeProvider} from '@mui/material/styles';
+export default function TemporaryDrawer() {
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#3f50b5',
+      },
+      secondary: {
+        main: '#2e7d32',
+      },
+    },
+  });
+
+  return (
+    <div>
+        <ThemeProvider theme={theme}>
+
+        
+      <Button onClick={toggleDrawer(true)} color='secondary'>Filters</Button>
+      <Drawer sx={{paddingLeft:'2em'}} open={open} onClose={toggleDrawer(false)} anchor='left'>
+      <AccordionExpandDefault name='User Type' labels={['Super Admin','Admin','User']}/>
+        <AccordionExpandDefault name='Roles'labels={['Role1','Role2','Role3']}/>
+        <AccordionExpandDefault name='Recent Logins'labels={['Login1','Login2','Login3']}/>
+      </Drawer>
+      </ThemeProvider>
+    </div>
+  );
+}
